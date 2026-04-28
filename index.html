@@ -55,21 +55,25 @@
             <h2 class="glow-title">A Força que Move as Nações</h2>
 
             <!-- Texto explicativo -->
-            <p class="main-text">
-                A eletricidade é a espinha dorsal da sociedade moderna...
-            </p>
+          <p class="main-text">
+            Muito além de fios e postes, a energia é o pulso invisível que sustenta a  <strong style="color: var(--orange-neon);">inovação</strong>. <br>
+            Entender de onde ela vem e como ela é tarifada é o primeiro passo para uma sociedade <br>
+            mais  <strong style="color: var(--orange-neon);">consciente</strong> e  <strong style="color: var(--orange-neon);">eficiente</strong>.
+          </p>
 
-            <!-- Card com explicação extra -->
-            <div class="expand-card">
-                <h3>💡 A Conexão Vital: Luz & Água</h3>
-                <p>
-                    A maioria das cidades usa bombas elétricas gigantescas...
-                </p>
-            </div>
+        <div class="expand-card">
+            <h3>⚡Curto-Circuito: Para onde vai o seu dinheiro?</h3>
+            <p>
+                A matriz brasileira é uma das mais limpas do mundo, mas sua estrutura de custos é complexa.<br> 
+                O setor abrange desde a <strong style="color: var(--orange-neon);">Geração</strong> (o nascimento da energia em hidrelétricas,<br> 
+                parques eólicos e solares) até a <strong style="color: var(--orange-neon);">Distribuição</strong> (o caminho final até você), <br>
+                passando por um sistema denso de encargos e  <strong style="color: var(--orange-neon);">leilões</strong> que garantem que a luz nunca apague.
+            </p>
+        </div>
 
             <!-- Botão que leva para o simulador -->
             <button class="next-btn" onclick="changeTab(1)">
-                Ir para o Simulador →
+                Explorar Simulador →
             </button>
         </section>
 
@@ -94,7 +98,7 @@
                 <div class="input-card">
                     <label>Bandeira Tarifária</label>
                     <select id="inputBandeira">
-                        <option value="verde">Bandeira Verde (Normal)</option>
+                        <option value="verde">Bandeira Verde  (Normal)</option>
                         <option value="amarela">Bandeira Amarela (Alerta)</option>
                         <option value="vermelha">Bandeira Vermelha (Crítica)</option>
                     </select>
@@ -118,7 +122,7 @@
                 <div id="explica-imposto" class="imposto-detail">
                     <h3>Para onde vai o seu dinheiro?</h3>
                     <p id="texto-dinamico">
-                        Clique em calcular para ver a análise detalhada...
+                         Passe o mouse sobre as fatias do gráfico para ver o detalhamento...
                     </p>
                 </div>
             </div>
@@ -135,14 +139,17 @@
 
                 <!-- Card de estudo 1 -->
                 <div class="study-card">
-                    <h3>Leilões de Energia</h3>
+                    <h3>Segurança Energética e a Matriz Infinita</h3>
 
                     <!-- Conteúdo escondido que aparece ao interagir -->
                     <div class="more-content">
-                        O governo organiza leilões...
+                        Este é o conceito mais importante na frente de tudo. No setor, não importa apenas ter energia, importa quando e como ela está disponível....
+                        <span class="hint">
+                           Enquanto o PDE projeta a próxima década, o BEN é o retrato oficial do ano que passou. Ele audita não apenas a eletricidade, mas toda a energia do país (petróleo, biomassa e gás). <br>É o documento que prova ao mundo que o Brasil possui uma das matrizes mais limpas do planeta."<br>
+                        </span>
                     </div>
 
-                    <span class="hint">(Passe o mouse para expandir)</span>
+                    
                 </div>
 
                 <!-- Card de estudo 2 -->
@@ -151,17 +158,59 @@
                     <div class="more-content">
                         As hidrelétricas funcionam como...
                     </div>
-                    <span class="hint">(Passe o mouse para expandir)</span>
+                    <span class="hint">As Hidrelétricas funcionam como a 'Bateria Natural' do Brasil, armazenando energia em forma de água.<br> Já a Solar é uma fonte intermitente (gera apenas com sol). A inteligência do setor elétrico está em usar a solar de dia para economizar a água dos reservatórios para a noite.</span>
                 </div>
 
                 <!-- Card de estudo 3 -->
                 <div class="study-card">
-                    <h3>Vilões do Consumo</h3>
+                    <h3>PDE (Plano Decenal de Energia):</h3>
                     <div class="more-content">
-                        O Chuveiro Elétrico é o que mais gasta...
+                        É o documento mais importante da EPE...
                     </div>
-                    <span class="hint">(Passe o mouse para expandir)</span>
+                    <span class="hint">O PDE é o plano mestre de 10 anos elaborado pela EPE. <br>Ele define onde e quando o governo deve construir novas usinas e linhas de transmissão para garantir que a economia cresça sem o risco de apagões ou racionamentos.</span>
                 </div>
+
+                <!-- Card de estudo 4 -->
+                <div class="study-card">
+                    <h3>Balanço Energético Nacional (BEN)</h3>
+                    <div class="more-content">
+                        Diferente do PDE (que olha para o futuro), o BEN olha para o passado....
+                    </div>
+                    <span class="hint">Nos Leilões de Energia Nova, o governo contrata usinas que ainda serão construídas (investimento futuro). <br>Na Energia Existente, ele compra de usinas já pagas, o que ajuda a equilibrar a tarifa, já que o custo de construção dessas usinas já foi amortizado.</span>
+                </div>
+
+                <!-- Card de estudo 5 -->
+                <div class="study-card">
+                    <h3>Energia Nova vs. Energia Existente (O Mercado de Leilões)</h3>
+                    <div class="more-content">
+                        Isso é o que define o preço da sua conta e como o governo gere o dinheiro:...
+                    </div>
+                    <span class="hint">
+                    É o mecanismo que garante o equilíbrio entre o preço atual e o investimento no futuro.
+
+                    Explicação: Energia Existente (Leilão "A"): Compra energia de usinas já amortizadas (pagas). É o "porto seguro" da nossa tarifa, pois tende a ser mais barata.<br>
+                    Energia Nova (Leilões "A-4" a "A-6"): Contrata usinas que serão construídas. O prazo (4 a 6 anos) é o tempo para a obra ser concluída.<br>
+                    Estratégia: Mantém a matriz tecnológica sempre moderna e atrai bilhões em investimentos estrangeiros para o Brasil.
+                                        
+                    </span>
+                </div>
+
+                <!-- Card de estudo 6 -->
+                <div class="study-card">
+                    <h3>Sistema Interligado Nacional (SIN).</h3>
+                    <div class="more-content">
+                        O Brasil é um dos poucos países do mundo que é quase todo conectado por cabos.
+                    <span class="hint">
+                    A imensa rede de "estradas de energia" que conecta o Brasil de norte a sul.<br>
+                    Explicação: Com mais de 140 mil km de linhas de transmissão, o SIN permite que o Brasil funcione como um único sistema.<br>
+                    Exemplo Prático: Se as hidrelétricas do Sul estão com níveis baixos, o SIN transporta instantaneamente a energia eólica produzida no Nordeste para suprir a demanda. Isso evita apagões e otimiza o custo de operação nacional.
+
+                    </span>
+                </div>
+
+
+
+
             </div>
         </section>
 
@@ -187,9 +236,7 @@
                     </thead>
 
                     <!-- Corpo da tabela (preenchido via JavaScript) -->
-                    <tbody id="tabelaCorpo">
-                        <!-- JS insere os dados aqui -->
-                    </tbody>
+                    <tbody id="tabelaCorpo"></tbody>
                 </table>
             </div>
         </section>

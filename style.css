@@ -33,7 +33,7 @@ body {
 /* SIDEBAR & LOGO */
 /* ========================= */
 .sidebar {
-    width: 300px;
+    width: 350px;
     background: var(--black);
     padding: 30px;
 
@@ -119,7 +119,7 @@ body {
 /* ========================= */
 .content {
     /* Espaço para não sobrepor a sidebar fixa */
-    margin-left: 320px;
+    margin-left: 370px;
 
     padding: 50px;
     width: 100%;
@@ -202,47 +202,50 @@ body {
 
 /* Inputs e selects */
 .input-card input, .input-card select {
-    background: transparent;
-
+    background: var(--dark-grey); /* Fundo escuro para destacar a letra */
     border: none;
     border-bottom: 2px solid #444;
-
     color: white;
-
     width: 100%;
     font-size: 1.3rem;
-
-    padding: 8px 0;
-
+    padding: 8px 5px; /* Um pouco de respiro nas laterais */
     outline: none;
 }
 
-/* Botão principal do simulador */
-.btn-calculate {
+/* Adicione isto para garantir que as opções do menu apareçam */
+select option {
+    background-color: var(--dark-grey);
+    color: white;
+}
+
+/* Botão principal do simulador e botão de avançar */
+.btn-calculate, .next-btn {
     background: var(--orange-neon);
     color: white;
 
-    font-weight: bold;
-    font-size: 1.1rem;
+    /* A mesma letra do título que você gostou */
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.3rem;
 
-    border: none;
-
-    padding: 0 50px;
-
-    border-radius: 15px;
-
+    border: 2px solid var(--black);
+    padding: 15px 50px;
+    border-radius: 50px; /* Deixa ele mais arredondado e elegante */
     cursor: pointer;
 
-    /* Glow forte */
-    box-shadow: 0 0 20px var(--orange-neon);
+    /* Efeito de borda preta em volta de cada letra */
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 
+    /* Brilho neon */
+    box-shadow: 0 0 20px var(--orange-glow);
     transition: 0.4s;
 }
 
-/* Hover com leve crescimento */
-.btn-calculate:hover { 
+/* Efeito ao passar o mouse */
+.btn-calculate:hover, .next-btn:hover { 
     transform: scale(1.05); 
-    filter: brightness(1.2); 
+    box-shadow: 0 0 30px var(--orange-neon);
+    filter: brightness(1.1);
 }
 
 /* ========================= */

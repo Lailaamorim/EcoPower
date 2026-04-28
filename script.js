@@ -1,170 +1,134 @@
 /**
  * ECOPOWER CODING - JAVASCRIPT CORE
- * Controla navegação, cálculos e gráficos dinâmicos.
+ * Versão Final Sincronizada
  */
 
 /* ========================= */
 /* CONTROLE DE NAVEGAÇÃO (TABS) */
 /* ========================= */
-/* Responsável por trocar as "telas" do sistema */
 function changeTab(index) {
-
-    // Seleciona todas as abas de conteúdo
     const tabs = document.querySelectorAll('.tab-panel');
-
-    // Seleciona todos os botões do menu lateral
     const buttons = document.querySelectorAll('.nav-btn');
 
-    // Remove a classe "active" de todas as abas (esconde tudo)
     tabs.forEach(tab => tab.classList.remove('active'));
-
-    // Remove o destaque dos botões
     buttons.forEach(btn => btn.classList.remove('active'));
 
-    // Ativa apenas a aba clicada
     tabs[index].classList.add('active');
-
-    // Destaca o botão correspondente
     buttons[index].classList.add('active');
     
-    // Suaviza a rolagem para o topo (melhor UX no mobile)
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 
 /* ========================= */
 /* CONTROLE DO GRÁFICO */
 /* ========================= */
-/* Variável global para armazenar o gráfico atual */
 let meuGrafico = null;
-
 
 /* ========================= */
 /* PROCESSAMENTO PRINCIPAL (SIMULADOR) */
 /* ========================= */
-/* Função chamada ao clicar em "CALCULAR IMPACTO" */
 function processarDados() {
-
-    // Pega o valor digitado pelo usuário e converte para número
-    const valor = parseFloat(document.getElementById('inputValor').value);
+    let input = document.getElementById('inputValor').value;
+    const valor = parseFloat(input);
     
-    // Validação básica (evita erro ou cálculo inválido)
     if (!valor || valor <= 0) {
         alert("Por favor, Zi, insira um valor de fatura válido para continuar.");
-        return; // interrompe a execução
+        return;
     }
 
-    /* ========================= */
-    /* LÓGICA DE NEGÓCIO */
-    /* ========================= */
-    /* Percentuais simulados do setor energético */
+    // FORMATAÇÃO AUTOMÁTICA (Ex: 155 vira 155.00 no campo de input)
+    document.getElementById('inputValor').value = valor.toFixed(2);
+
     const pGeracao = 35;
     const pRede = 25;
     const pImpostos = 40;
 
-    // Calcula os valores em reais com base nas porcentagens
-    const vGeracao = (valor * pGeracao / 100).toFixed(2);
-    const vRede = (valor * pRede / 100).toFixed(2);
-    const vImpostos = (valor * pImpostos / 100).toFixed(2);
+    // Mostra o card explicativo (alinhado com o CSS .imposto-detail)
+    document.getElementById('explica-imposto').style.display = 'block';
 
-    /* ========================= */
-    /* ATUALIZAÇÃO DO TEXTO DINÂMICO */
-    /* ========================= */
+    gerarGraficoDinamico(valor, pGeracao, pRede, pImpostos);
+    atualizarTabela(valor);
+}
 
-    // Seleciona elementos do card explicativo
-    const cardInfo = document.getElementById('explica-imposto');
-    const textoDinamico = document.getElementById('texto-dinamico');
-
-    // Mostra o card (estava oculto no CSS)
-    cardInfo.style.display = 'block';
-
-    // Insere explicação com valores calculados
-    textoDinamico.innerHTML = `
-        Dos seus R$ ${valor.toFixed(2)}, cerca de <strong>R$ ${vImpostos}</strong> 
-        são impostos (ICMS/PIS/COFINS) que retornam para serviços públicos. 
-        <strong>R$ ${vGeracao}</strong> pagam as usinas e combustíveis.
-    `;
-
-    /* ========================= */
-    /* CRIAÇÃO DO GRÁFICO (CHART.JS) */
-    /* ========================= */
-
-    // Pega o contexto do canvas
+/* ========================= */
+/* CRIAÇÃO DO GRÁFICO (CHART.JS) */
+/* ========================= */
+function gerarGraficoDinamico(valorTotal, pGer, pRed, pImp) {
     const ctx = document.getElementById('graficoEnergia').getContext('2d');
-
-    // Se já existe gráfico, destrói antes de criar outro (evita duplicação)
+    
     if (meuGrafico) meuGrafico.destroy();
 
-    // Cria novo gráfico tipo "rosca" (doughnut)
     meuGrafico = new Chart(ctx, {
         type: 'doughnut',
-
         data: {
             labels: ['Geração', 'Rede (Fios)', 'Impostos'],
             datasets: [{
-                data: [pGeracao, pRede, pImpostos],
-
-                // Cores das fatias
+                data: [pGer, pRed, pImp],
                 backgroundColor: ['#ff6600', '#444', '#e74c3c'],
-
-                // Cor da borda
                 borderColor: '#050505',
-
                 borderWidth: 4,
-
-                // Efeito ao passar o mouse
-                hoverOffset: 15
+                hoverOffset: 25 // Aumenta a fatia ao passar o mouse
             }]
         },
-
         options: {
-            // Tamanho do "buraco" no meio
             cutout: '75%',
-
             responsive: true,
-
-            plugins: {
-                legend: {
-                    position: 'bottom',
-
-                    labels: {
-                        color: 'white',
-
-                        // Fonte do gráfico (igual ao projeto)
-                        font: {
-                            family: 'Playfair Display',
-                            size: 14
-                        }
+            // A MÁGICA DA SINCRONIA:
+            onHover: (event, chartElement) => {
+                const textoDinamico = document.getElementById('texto-dinamico');
+                if (chartElement.length > 0) {
+                    const index = chartElement[0].index;
+                    const valorItem = (valorTotal * (meuGrafico.data.datasets[0].data[index] / 100)).toFixed(2);
+                    
+                    if (index === 0) {
+                        textoDinamico.innerHTML = `<strong>Geração (R$ ${valorItem}):</strong> Paga a produção de energia nas usinas.`;
+                    } else if (index === 1) {
+                        textoDinamico.innerHTML = `<strong>Rede (R$ ${valorItem}):</strong> Manutenção dos postes e fios (TUSD/TE).`;
+                    } else if (index === 2) {
+                        textoDinamico.innerHTML = `<strong>Impostos (R$ ${valorItem}):</strong> ICMS, PIS e COFINS para o governo.`;
                     }
+                } else {
+                    // Texto quando o mouse não está em cima de nenhuma fatia
+                    textoDinamico.innerHTML = `Passe o mouse no gráfico de <strong>R$ ${valorTotal.toFixed(2)}</strong> para detalhar.`;
                 }
+            },
+            plugins: {
+                legend: { display: false } // Desativado para não atrapalhar a sincronia do mouse
             }
         }
     });
-
-    /* ========================= */
-    /* ATUALIZAÇÃO DA TABELA (MME) */
-    /* ========================= */
-
-    // Seleciona o corpo da tabela
-    const corpo = document.getElementById('tabelaCorpo');
-
-    // Insere linhas dinamicamente com base no valor
-    corpo.innerHTML = `
-        <tr><td>Geração</td><td>Usinas (Hidro, Térmicas e Solar)</td><td>${pGeracao}% (R$ ${vGeracao})</td></tr>
-        <tr><td>Transmissão</td><td>Linhas de Alta Tensão (Torres)</td><td>7% (R$ ${(valor * 0.07).toFixed(2)})</td></tr>
-        <tr><td>Distribuição</td><td>Rede Urbana (Postes e Fiação)</td><td>18% (R$ ${(valor * 0.18).toFixed(2)})</td></tr>
-        <tr><td>Impostos Estaduais</td><td>ICMS (Financia Saúde e Educação)</td><td>25% (R$ ${(valor * 0.25).toFixed(2)})</td></tr>
-        <tr><td>Encargos Sociais</td><td>Subsídios (Tarifa Social)</td><td>15% (R$ ${(valor * 0.15).toFixed(2)})</td></tr>
-    `;
 }
 
+/* ========================= */
+/* ATUALIZAÇÃO DA TABELA (MME) */
+/* ========================= */
+function atualizarTabela(valor) {
+    const corpo = document.getElementById('tabelaCorpo');
+    
+    // Cálculos técnicos
+    const vGer = (valor * 0.35).toFixed(2);
+    const vTrans = (valor * 0.07).toFixed(2);
+    const vDist = (valor * 0.18).toFixed(2);
+    const vImp = (valor * 0.25).toFixed(2);
+    const vEnc = (valor * 0.15).toFixed(2);
+
+    corpo.innerHTML = `
+        <tr><td>Geração</td><td>Usinas e Combustíveis</td><td>35% (R$ ${vGer})</td></tr>
+        <tr><td>Transmissão</td><td>Linhas de Alta Tensão</td><td>7% (R$ ${vTrans})</td></tr>
+        <tr><td>Distribuição</td><td>Postes e Fiação Urbana</td><td>18% (R$ ${vDist})</td></tr>
+        <tr><td>Impostos</td><td>ICMS (Saúde e Educação)</td><td>25% (R$ ${vImp})</td></tr>
+        <tr><td>Encargos</td><td>Subsídios Sociais</td><td>15% (R$ ${vEnc})</td></tr>
+        <tr style="color: #ff6600; font-weight: bold; font-family: 'Playfair Display', serif;">
+            <td colspan="3">Dados baseados em uma conta de R$ ${valor.toFixed(2)}.</td>
+        </tr>
+    `;
+}
 
 /* ========================= */
 /* INICIALIZAÇÃO DO SISTEMA */
 /* ========================= */
-/* Executa quando o HTML termina de carregar */
 document.addEventListener('DOMContentLoaded', () => {
-
-    // Log de confirmação (debug)
-    console.log("EcoPower Coding pronto para brilhar!");
+    // Inicializa a planilha com R$ 50,00 para já abrir com conteúdo (como solicitado)
+    atualizarTabela(50);
+    console.log("EcoPower Coding pronto e 100% sincronizado!");
 });
