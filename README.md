@@ -26,7 +26,7 @@ Eu te convido a explorar esta ferramenta que vai além de um simples código. Aq
 
 Sinta-se à vontade para interagir, testar valores e aprender um pouco mais sobre como o Brasil se mantém iluminado.
 
-[**👉 CLIQUE AQUI PARA ACESSAR O SIMULADOR AO VIVO**](http://lailaamorim.github.io/NLW-eSports-explore/)
+[**👉 CLIQUE AQUI PARA ACESSAR O SIMULADOR AO VIVO**](http://lailaamorim.github.io/EcoPower/)
 
 ---
 
