@@ -1,0 +1,378 @@
+/* ========================= */
+/* VARIÁVEIS GLOBAIS (TEMA) */
+/* ========================= */
+/* Centraliza todas as cores do projeto (facilita manutenção e mudança de tema) */
+:root {
+    --black: #050505;
+    --dark-grey: #121212;
+    --orange-neon: #ff6600;
+    --orange-glow: rgba(255, 102, 0, 0.6);
+    --white: #ffffff;
+}
+
+/* ========================= */
+/* CONFIGURAÇÃO BASE DO SITE */
+/* ========================= */
+body {
+    background-color: var(--black);
+    color: var(--white);
+    margin: 0;
+
+    /* Layout principal em linha (sidebar + conteúdo) */
+    display: flex;
+    flex-direction: row;
+
+    /* Garante altura mínima da tela */
+    min-height: 100vh;
+
+    /* Fonte principal do projeto */
+    font-family: 'Playfair Display', serif;
+}
+
+/* ========================= */
+/* SIDEBAR & LOGO */
+/* ========================= */
+.sidebar {
+    width: 300px;
+    background: var(--black);
+    padding: 30px;
+
+    /* Linha lateral destacando a navegação */
+    border-right: 2px solid var(--orange-neon);
+
+    /* Fixa a sidebar na tela */
+    position: fixed;
+    height: 100vh;
+
+    /* Mantém acima de outros elementos */
+    z-index: 100;
+
+    box-sizing: border-box;
+}
+
+/* Logo principal com efeito neon */
+.logo-main {
+    font-size: 4rem;
+    color: var(--orange-neon);
+
+    /* Efeito de brilho */
+    text-shadow: 0 0 20px var(--orange-glow);
+
+    margin: 0;
+    font-weight: 900;
+
+    /* Animação contínua */
+    animation: neonPulse 2s infinite;
+}
+
+/* Subtítulo do logo */
+.logo-sub {
+    font-family: 'Playwrite NZ', cursive;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: -10px;
+}
+
+/* Animação de pulsação do neon */
+@keyframes neonPulse {
+    0%, 100% { text-shadow: 0 0 15px var(--orange-glow); }
+    50% { text-shadow: 0 0 30px var(--orange-neon), 0 0 45px var(--orange-glow); }
+}
+
+/* ========================= */
+/* BOTÕES DE NAVEGAÇÃO */
+/* ========================= */
+.nav-btn {
+    display: block;
+    width: 100%;
+
+    background: transparent;
+    border: 1px solid #333;
+    color: #888;
+
+    padding: 15px;
+    margin: 10px 0;
+
+    text-align: left;
+    cursor: pointer;
+
+    border-radius: 8px;
+
+    /* Transição suave para hover */
+    transition: 0.3s;
+}
+
+/* Estado ativo e hover (efeito visual + destaque) */
+.nav-btn.active, .nav-btn:hover {
+    border-color: var(--orange-neon);
+    color: white;
+
+    /* Glow neon */
+    box-shadow: 0 0 15px var(--orange-glow);
+
+    /* Pequeno deslocamento lateral */
+    transform: translateX(5px);
+}
+
+/* ========================= */
+/* ÁREA DE CONTEÚDO */
+/* ========================= */
+.content {
+    /* Espaço para não sobrepor a sidebar fixa */
+    margin-left: 320px;
+
+    padding: 50px;
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+/* Controle de abas (tabs) */
+.tab-panel { 
+    display: none; /* escondido por padrão */
+}
+
+/* Aba ativa aparece com animação */
+.tab-panel.active { 
+    display: block; 
+    animation: fadeIn 0.5s ease; 
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* Títulos com efeito glow */
+.glow-title { 
+    color: var(--orange-neon); 
+    text-shadow: 0 0 10px var(--orange-glow); 
+    font-size: 2.5rem; 
+}
+
+.glow-title-big { 
+    font-size: 3.5rem; 
+    color: var(--orange-neon); 
+    text-align: center; 
+    text-shadow: 0 0 20px var(--orange-glow); 
+}
+
+/* ========================= */
+/* SIMULADOR (INPUTS E CARDS) */
+/* ========================= */
+.calculator-grid {
+    display: flex;
+    gap: 20px;
+
+    justify-content: center;
+
+    margin-bottom: 50px;
+
+    /* Permite quebrar linha em telas menores */
+    flex-wrap: wrap;
+}
+
+/* Cartões de entrada */
+.input-card {
+    background: var(--dark-grey);
+    padding: 25px;
+
+    border-radius: 15px;
+    border: 1px solid #333;
+
+    min-width: 250px;
+
+    transition: 0.3s;
+}
+
+/* Destaque quando o usuário interage com o input */
+.input-card:focus-within { 
+    border-color: var(--orange-neon); 
+    box-shadow: 0 0 15px var(--orange-glow); 
+}
+
+/* Labels dos inputs */
+.input-card label { 
+    display: block; 
+    margin-bottom: 10px; 
+    color: var(--orange-neon); 
+    font-weight: bold; 
+}
+
+/* Inputs e selects */
+.input-card input, .input-card select {
+    background: transparent;
+
+    border: none;
+    border-bottom: 2px solid #444;
+
+    color: white;
+
+    width: 100%;
+    font-size: 1.3rem;
+
+    padding: 8px 0;
+
+    outline: none;
+}
+
+/* Botão principal do simulador */
+.btn-calculate {
+    background: var(--orange-neon);
+    color: white;
+
+    font-weight: bold;
+    font-size: 1.1rem;
+
+    border: none;
+
+    padding: 0 50px;
+
+    border-radius: 15px;
+
+    cursor: pointer;
+
+    /* Glow forte */
+    box-shadow: 0 0 20px var(--orange-neon);
+
+    transition: 0.4s;
+}
+
+/* Hover com leve crescimento */
+.btn-calculate:hover { 
+    transform: scale(1.05); 
+    filter: brightness(1.2); 
+}
+
+/* ========================= */
+/* GRÁFICO E DETALHES */
+/* ========================= */
+.chart-section { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 50px; 
+    flex-wrap: wrap; 
+}
+
+/* Container do gráfico */
+.chart-wrapper { 
+    width: 320px; 
+    height: 320px; 
+    transition: 0.4s; 
+}
+
+/* Efeito ao passar o mouse */
+.chart-wrapper:hover { 
+    transform: scale(1.05); 
+    filter: drop-shadow(0 0 15px var(--orange-glow)); 
+}
+
+/* Caixa de explicação dos impostos */
+.imposto-detail {
+    background: #151515;
+
+    padding: 30px;
+    border-radius: 15px;
+
+    max-width: 350px;
+
+    border-left: 6px solid var(--orange-neon);
+
+    /* Começa escondido (JS controla exibição) */
+    display: none;
+}
+
+/* ========================= */
+/* CARDS DE ESTUDO (EXPANSÍVEIS) */
+/* ========================= */
+.study-card {
+    background: var(--dark-grey);
+
+    padding: 25px;
+    border-radius: 15px;
+
+    border: 1px solid #222;
+
+    margin-bottom: 20px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    /* Altura inicial reduzida */
+    max-height: 60px;
+
+    /* Animação de expansão */
+    transition: max-height 0.6s ease, border-color 0.3s;
+}
+
+/* Expande ao passar o mouse */
+.study-card:hover { 
+    max-height: 300px; 
+    border-color: var(--orange-neon); 
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.1); 
+}
+
+/* Texto de dica */
+.hint { 
+    font-size: 0.8rem; 
+    color: var(--orange-neon); 
+    display: block; 
+    margin-top: 10px; 
+}
+
+/* ========================= */
+/* TABELA */
+/* ========================= */
+.mme-table { 
+    width: 100%; 
+    background: #1a1a1a; 
+    border-collapse: collapse; 
+    border-radius: 12px; 
+    overflow: hidden; 
+}
+
+.mme-table th { 
+    background: var(--orange-neon); 
+    color: white; 
+    padding: 20px; 
+    text-align: left; 
+}
+
+.mme-table td { 
+    padding: 18px; 
+    border-bottom: 1px solid #333; 
+}
+
+/* ========================= */
+/* RESPONSIVIDADE (MOBILE) */
+/* ========================= */
+@media (max-width: 900px) {
+
+    /* Layout vira coluna (mobile) */
+    body { flex-direction: column; }
+
+    /* Sidebar deixa de ser fixa */
+    .sidebar { 
+        width: 100%; 
+        height: auto; 
+        position: relative; 
+        border-right: none; 
+        border-bottom: 2px solid var(--orange-neon); 
+    }
+
+    /* Conteúdo ocupa tudo */
+    .content { 
+        margin-left: 0; 
+        padding: 20px; 
+    }
+
+    /* Ajustes visuais */
+    .logo-main { font-size: 3rem; }
+
+    .calculator-grid { flex-direction: column; }
+
+    .btn-calculate { padding: 20px; }
+}
